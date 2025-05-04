@@ -1,10 +1,9 @@
 import * as cheerio from 'cheerio';
 import axios from 'axios';
 import iconv from 'iconv-lite';
-
+// MODELO DE LINK DE LLAMADA http://localhost:1234/scraping/times-table?link=https://www.marca.com/motor/motogp/gp-tailandia/moto2-libres2.html
 export const resultadosSession = async (req, res) => {
   const link = req.query.link || req.body.link; // admite ambos métodos
-  console.log('Link:', link);
 
   if (!link) {
     return res.status(400).json({ error: 'Falta el parámetro link en la solicitud.' });

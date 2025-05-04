@@ -10,11 +10,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Configurar CORS (descomenta esta en producción)
-app.use(cors({
+/*app.use(cors({
   origin: 'https://show-me-the-data.netlify.app',
   credentials: true
-}));
-
+}));*/
+app.use(cors())
 // Rutas de scraping
 app.use("/scraping", scrapingRouter);
 app.use("/user", userRouter)

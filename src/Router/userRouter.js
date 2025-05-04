@@ -1,8 +1,10 @@
 import express from "express";
-import {  registerUser, updateUser } from "../Controllers/userController"; // Asegúrate de que la ruta sea correcta
+import {  registerUser, updateUser } from "../Controllers/userController.js"; // Asegúrate de que la ruta sea correcta
 
 const router = express.Router();
-
+router.get('/', async (req, res) => {
+    res.send('Hola desde el servidor, bienvenido a la API de monedas/crypto')
+})
 //REGISTRAR USUARIO
 router.post('/new',registerUser)
 
