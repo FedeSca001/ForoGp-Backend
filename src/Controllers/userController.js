@@ -1,15 +1,10 @@
 import bcryptjs from 'bcryptjs';
-
+import { z } from 'zod';
 
 export const registerUser = async (req, res) => {
     try {
         // Obtener la contraseña del cuerpo de la solicitud
         const { user, pass, mail } = req.body;
-        console.log({user,pass,mail});
-        
-        if (!user || !pass || !mail) {
-            return res.status(400).send('Todos los campos son obligatorios.');
-        }
         // Generar un token de 200 caracteres
         let generateTokenId = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -33,6 +28,24 @@ export const registerUser = async (req, res) => {
     }
 };
 
+export const getUser = async (req, res) => {
+    try {
+        const { id, user, pass, hashedPass } = req.body;
+        // Comparamos la contraseña proporcionada (pass) con la almacenada (hashedPass)
+        const passwordMatch = await bcryptjs.compare(pass, hashedPass);
+
+        res.send({
+            id: id,
+            user: user,
+            pass: pass,
+            passwordMatch: passwordMatch,
+            logued: true
+        });
+    }catch (error) {
+        // En caso de error, respondemos con un mensaje de error
+        return res.status(500).json({ message: "Error obteniendo el usuario", error });
+    }
+}
 
 export const updateUser = async (req, res) => {
     try {
